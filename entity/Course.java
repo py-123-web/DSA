@@ -88,18 +88,13 @@ public class Course implements Comparable<Course> {
         this.courseCode = courseCode;
         this.courseName = courseName;
     }
-
-    public Course(String courseCode, String courseName, String programme) {
-      this.courseCode = courseCode;
-      this.courseName = courseName;
-      this.programme = programme;
-    }
-
-
+    
+    
     @Override
   public int compareTo(Course o) {
     return programme.compareTo(o.programme);
   }
+  
   @Override
     public boolean equals(Object obj) {
         if (this == obj) {
