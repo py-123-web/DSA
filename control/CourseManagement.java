@@ -113,10 +113,8 @@ public class CourseManagement {
           course_code =courseUI.getCourseCode();
            course_name =courseUI.getCourseName();
             
-           createCourseCode(course_code);
-            createCourseName(course_name);
+           createCourse(course_code, course_name);
            
-        
           if (!courseCodeExists(course_code)) {
             courseUI.displayAddCourseExist(course_code);
             break;
@@ -190,7 +188,7 @@ public class CourseManagement {
         return newProg;
     }
 
-      public Course createCourseCode(String course_code) {
+      public Course createCourse(String course_code, String course_name) {
         Iterator<Course> iterator = courseList.getIterator();
   
         while (iterator.hasNext()) {
@@ -200,27 +198,27 @@ public class CourseManagement {
             }
         }
         // If not found, create a new course 
-        Course newCourseCode = new Course(course_code);
-        courseList.add(newCourseCode);
-        return newCourseCode;  
+        Course newCourse = new Course(course_code, course_name);
+        courseList.add(newCourse);
+        return newCourse; 
         
     }
-      
-      public Course createCourseName(String course_name) {
-        Iterator<Course> iterator = courseList.getIterator();
-  
-        while (iterator.hasNext()) {
-            Course group = iterator.next();
-            if (group.getCourseName().equals(course_name)) {
-                return group;
-            }
-        }
-        // If not found, create a new course 
-        Course newCourseName = new Course(course_name);
-        courseList.add(newCourseName);
-        return newCourseName;  
-        
-    }
+//      
+//      public Course createCourseName(String course_name) {
+//        Iterator<Course> iterator = courseList.getIterator();
+//  
+//        while (iterator.hasNext()) {
+//            Course group = iterator.next();
+//            if (group.getCourseName().equals(course_name)) {
+//                return group;
+//            }
+//        }
+//        // If not found, create a new course 
+//        Course newCourseName = new Course(course_name);
+//        courseList.add(newCourseName);
+//        return newCourseName;  
+//        
+//    }
       
 //      //create course name
 //      public Course createCourseName(String course_name) {
