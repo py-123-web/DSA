@@ -58,12 +58,12 @@ public class CourseManagement {
                 break;
 
                  case 7 :
-                listProg();
+                listProgCourse();
                     //productUI.listAllProducts(getAllProducts());
                 break;
 
                 case 8 :
-                listCourse();
+//                listCourse();
                    break;
 
                 case 6 :
@@ -172,7 +172,6 @@ public class CourseManagement {
     return false;
 }
 
-
         //create
       public Course createProg(String stuProgramme) {
         Iterator<Course> iterator = progList.getIterator();
@@ -238,14 +237,15 @@ public class CourseManagement {
 //    }
 
      //list function
-   public void listProg() {
-    Iterator<Course> iterator = progList.getIterator();
+   public void listProgCourse() {
+    Iterator<Course> iterator = courseList.getIterator();
     boolean found = false;
 
     while (iterator.hasNext()) {
         Course course = iterator.next();
         // Display the details of the programme saved in the array
-        courseUI.printProgramme(course.getProgramme());
+       
+        courseUI.printCoursesProgramme(course.getProgramme(),course.getCourseCode(),course.getCourseName());
         found = true;
     }
 
@@ -254,20 +254,30 @@ public class CourseManagement {
     }
 }
 
-   public void listCourse() {
-    Iterator<Course> iterator = courseList.getIterator();
-    boolean found = false;
-
-    while (iterator.hasNext()) {
-        Course course = iterator.next();
-        // Display the details of the programme saved in the array
-        courseUI.printCourse(course.getCourseCode(),course.getCourseName());
-        found = true;
-    }
-
-    if (!found) {
-        courseUI.displayListProgNotFound("No courses found.");
-    }
-}
+//   public void listCourse() {
+//    Iterator<Course> iterator = courseList.getIterator();
+//    boolean found = false;
+//
+//    while (iterator.hasNext()) {
+//        Course course = iterator.next();
+//        // Display the details of the programme saved in the array
+//        courseUI.printCourse(course.getCourseCode(),course.getCourseName());
+//        found = true;
+//    }
+//
+//    if (!found) {
+//        courseUI.displayListProgNotFound("No courses found.");
+//    }
+//}
+   
+//   public void listProgCourse() {
+//    Iterator<Course> iterator = courseList.getIterator();
+//    boolean found = false;
+//    
+//    for (int i = 0; i < iterator.hasNext; i++) {
+//        Course course = iterator[i];
+//        courseUI.printCourse(course.getCourseCode(), course.getCourseName());
+//    }
+//}
 
 }
