@@ -16,29 +16,38 @@ public class MenuUI {
     
     // Method to display the menu and get user's choice
     public int getMenuChoice() {
-        System.out.println("\n=== UNIVERSITY SYSTEM ===");
-        System.out.println("");
-        
-        System.out.println("=========================");
-        System.out.println("==      MAIN MENU      ==");
-        System.out.println("=========================");
-        
-        System.out.println("1. Course Management Subsystem (HOR PEI YU)");
-        System.out.println("2. Student Registration Management (LEE WENG YAN)");
-        System.out.println("3. Tutorial Group Management (LOW JIA YU)");
-        System.out.println("4. Teaching Assignment Subsystem (KHONG SHU YEN)");
-        System.out.println("5. Assignment Team Management (WONG YEN JUN)");
-        System.out.println("0. Quit");
-        
-        System.out.println("");
-        
-        System.out.print("Enter the number of subsystem: ");
-        choice = scanner.nextInt(); // Read user's choice
-        scanner.nextLine(); // Consume newline character
-        
-        return choice;
-    }
+    Scanner scanner = new Scanner(System.in);
+    int choice = -1; // Initialize choice variable
     
+    System.out.println("\n=== UNIVERSITY SYSTEM ===\n");
+    System.out.println("=========================");
+    System.out.println("==      MAIN MENU      ==");
+    System.out.println("=========================");
+    System.out.println("1. Course Management Subsystem (HOR PEI YU)");
+    System.out.println("2. Student Registration Management (LEE WENG YAN)");
+    System.out.println("3. Tutorial Group Management (LOW JIA YU)");
+    System.out.println("4. Teaching Assignment Subsystem (KHONG SHU YEN)");
+    System.out.println("5. Assignment Team Management (WONG YEN JUN)");
+    System.out.println("0. Quit\n");
+    
+    boolean loop = true;
+    
+    do {
+        System.out.print("Enter the number of subsystem: ");
+        
+        try {
+            choice = scanner.nextInt(); // Read user's choice
+            scanner.nextLine(); // Consume newline character
+            loop = false; // Exit the loop if input is successful
+        } catch (Exception ex) {
+            System.out.println("[Error Message]: Only accept numeric input. Please try again.");
+            scanner.nextLine(); // Clear the invalid input from the scanner
+        }
+    } while (loop);
+    
+    return choice;
+}
+
     // Method to run the selected subsystem
     public void runSubsystem() {
         do {
