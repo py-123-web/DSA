@@ -2,10 +2,15 @@ package control;
 
 import adt.SortedListInterface;
 import adt.SortedArrayList;
+
 import entity.Course;
+import entity.Programme;
 import boundary.CourseUI;
 import java.util.Iterator;
+import utility.DateTime;
 import utility.MessageUI;
+import dao.CourseInitializer;
+import dao.ProgrammeInitializer;
 
 /**
  *
@@ -20,15 +25,13 @@ import utility.MessageUI;
 
 public class CourseManagement {
 
-    private SortedListInterface<Course> progList = new SortedArrayList<>();
+    private SortedListInterface<Programme> progList = new SortedArrayList<>();
     private SortedListInterface<Course> courseList = new SortedArrayList<>();
+    
     private CourseUI courseUI = new CourseUI();
 
-    //for add programme
-      String stuProgramme;
-
       //for add course
-       String stu_programme;
+       String stu_programmeCode;
        String course_code;
        String course_name;
 
@@ -49,7 +52,9 @@ public class CourseManagement {
             break;
 
             case 1 :
-                addNewProgramme();
+              ProgrammeManagement programmeManagement = new ProgrammeManagement();
+                programmeManagement.addNewProgramme();
+
                 break;
 
             case 3:
@@ -67,7 +72,7 @@ public class CourseManagement {
                    break;
 
                 case 6 :
-                courseUI.printCoursesProgramme(stuProgramme, course_code, course_name);
+                
                 break;
 
             default :
@@ -77,34 +82,16 @@ public class CourseManagement {
             // MessageUI.displayInvalidChoiceMessage();
                 } while (choice != 0);
   }
-
-    //add
-    public void addNewProgramme() {
-    courseUI.getAddProgHeader();
-
-    // Get the input for the programme
-    do {
-        stuProgramme = courseUI.getProgrammeName();
-
-        // Check if the programme already exists
-        if (programmeExists(stuProgramme)) {
-            courseUI.displayAddProgrammeExist(stuProgramme);
-        } else {
-            // If the programme doesn't exist, create a new programme
-            createProg(stuProgramme);
-             MessageUI.displayRecordSuccessful();
-            break;
-        }
-    } while (true);
-}
+    
 
  public void addNewCourse() {
+      Iterator<Course> courseIterator = courseList.getIterator();
     courseUI.getAddCourseHeader();
 
     do {
-         stuProgramme = courseUI.getProgrammeForCourse();
+         stu_programmeCode = courseUI.getProgrammeForCourse();
 
-        if (!programmeExists(stuProgramme)) {
+        if (!programmeExistsForCourse(stu_programmeCode)) {
             courseUI.printProgNotExisted();
             break;
         }
@@ -113,7 +100,7 @@ public class CourseManagement {
           course_code =courseUI.getCourseCode();
            course_name =courseUI.getCourseName();
 
-          createCourse(course_code, course_name, stuProgramme);
+          createCourse(course_code, course_name);
 
           if (!courseCodeExists(course_code)) {
             courseUI.displayAddCourseExist(course_code);
@@ -129,40 +116,24 @@ public class CourseManagement {
     } while (false);
 }
 
-    //verify
-        public boolean programmeExists(String stuProgramme) {
-    Iterator<Course> iterator = progList.getIterator();
+         public boolean programmeExistsForCourse(String stu_programmeCode) {
+    Iterator<Programme> progIterator = progList.getIterator();
 
-    while (iterator.hasNext()) {
-        Course course = iterator.next();
-        if (course.getProgramme().equals(stuProgramme)) {
-            // If a course with the same program already exists, return true
+    while (progIterator.hasNext()) {
+        Programme programme = progIterator.next();
+        if (programme.getProgrammeCode().equals(stu_programmeCode)) {
+          
             return true;
         }
     }
-    // If no course with the same program is found, return false
-    return false;
-}
-
-         public boolean programmeExistsForCourse(String stu_programme) {
-    Iterator<Course> iterator = progList.getIterator();
-
-    while (iterator.hasNext()) {
-        Course course = iterator.next();
-        if (course.getProgramme().equals(stu_programme)) {
-            // If a program with the same program already exists, return true
-            return true;
-        }
-    }
-    // If no course with the same program is found, return false
     return false;
 }
 
            public boolean courseCodeExists(String course_code) {
-    Iterator<Course> iterator = courseList.getIterator();
+    Iterator<Course> courseIterator = courseList.getIterator();
 
-    while (iterator.hasNext()) {
-        Course course = iterator.next();
+    while (courseIterator.hasNext()) {
+        Course course = courseIterator.next();
         if (course.getCourseCode().equals(course_code)) {
             // If a course with the same program already exists, return true
             return true;
@@ -172,112 +143,48 @@ public class CourseManagement {
     return false;
 }
 
-        //create
-      public Course createProg(String stuProgramme) {
-        Iterator<Course> iterator = progList.getIterator();
-   while (iterator.hasNext()) {
-            Course group = iterator.next();
-            if (group.getProgramme().equals(stuProgramme)) {
-                return group;
-            }
-        }
-        // If not found, create a new programme
-        Course newProg = new Course(stuProgramme);
-        progList.add(newProg);
-        return newProg;
-    }
+      public Course createCourse(String course_code, String course_name) {
+        Iterator<Course> courseIterator = courseList.getIterator();
+        
 
-      public Course createCourse(String course_code, String course_name, String stuProgramme) {
-        Iterator<Course> iterator = courseList.getIterator();
-
-        while (iterator.hasNext()) {
-            Course group = iterator.next();
+        while (courseIterator.hasNext()) {
+            Course group = courseIterator.next();
             if (group.getCourseCode().equals(course_code)) {
                 return group;
             }
         }
         // If not found, create a new course
-        Course newCourse = new Course(course_code, course_name, stuProgramme);
-
+        Course newCourse = new Course(course_code, course_name);
         courseList.add(newCourse);
         return newCourse;
 
-    }
-//
-//      public Course createCourseName(String course_name) {
-//        Iterator<Course> iterator = courseList.getIterator();
-//
-//        while (iterator.hasNext()) {
-//            Course group = iterator.next();
-//            if (group.getCourseName().equals(course_name)) {
-//                return group;
-//            }
-//        }
-//        // If not found, create a new course
-//        Course newCourseName = new Course(course_name);
-//        courseList.add(newCourseName);
-//        return newCourseName;
-//
-//    }
+      }
 
-//      //create course name
-//      public Course createCourseName(String course_name) {
-//        Iterator<Course> iterator = courseList.getIterator();
-//   while (iterator.hasNext()) {
-//            Course group = iterator.next();
-//            if (group.getCourseName().equals(course_name)) {
-//                return group;
-//            }
-//        }
-//        // If not found, create a new course
-//        Course newCourseName = new Course(course_name);
-//        courseList.add(newCourseName);
-//        return newCourseName;
-//
-//    }
+    //list function
+public void listProgCourse() {
+    SortedListInterface<Course> courseList = CourseInitializer.courseInitializer();
+    SortedListInterface<Programme> progList = ProgrammeInitializer.programmeInitializer();
+    
+    Iterator<Course> courseIterator = courseList.getIterator();
+    Iterator<Programme> progIterator = progList.getIterator();
+    
+    boolean foundData = false;
 
-     //list function
-   public void listProgCourse() {
-    Iterator<Course> iterator = courseList.getIterator();
-    boolean found = false;
-
-    while (iterator.hasNext()) {
-        Course course = iterator.next();
-        // Display the details of the programme saved in the array
-       
-        courseUI.printCoursesProgramme(course.getProgramme(),course.getCourseCode(),course.getCourseName());
-        found = true;
+    // Display all courses and programmes
+    while (courseIterator.hasNext() && progIterator.hasNext()) {
+        Programme programme = progIterator.next();
+        Course course = courseIterator.next();
+        courseUI.printCoursesProgramme(programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseCode(), course.getCourseName());
+        foundData = true;
     }
 
-    if (!found) {
-        courseUI.displayListProgNotFound("No programmes found.");
+    // Check if no data is found
+    if (!foundData) {
+        courseUI.displayListCourseNotFound("No courses found.");
     }
+
+    // Print date and time
+    DateTime.currentDateTime();
 }
-
-//   public void listCourse() {
-//    Iterator<Course> iterator = courseList.getIterator();
-//    boolean found = false;
-//
-//    while (iterator.hasNext()) {
-//        Course course = iterator.next();
-//        // Display the details of the programme saved in the array
-//        courseUI.printCourse(course.getCourseCode(),course.getCourseName());
-//        found = true;
-//    }
-//
-//    if (!found) {
-//        courseUI.displayListProgNotFound("No courses found.");
-//    }
-//}
-   
-//   public void listProgCourse() {
-//    Iterator<Course> iterator = courseList.getIterator();
-//    boolean found = false;
-//    
-//    for (int i = 0; i < iterator.hasNext; i++) {
-//        Course course = iterator[i];
-//        courseUI.printCourse(course.getCourseCode(), course.getCourseName());
-//    }
-//}
 
 }
