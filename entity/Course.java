@@ -1,4 +1,3 @@
-
 package entity;
 
 /**
@@ -6,10 +5,10 @@ package entity;
  * @author pyhor
  */
 public class Course implements Comparable<Course> {
-   private String courseCode;
+   
+    private String courseCode;
    private String courseName;
    private String classType;
-   private String programme;
    private String semester;
    private Integer creditHour;
    private String faculty;
@@ -38,14 +37,6 @@ public class Course implements Comparable<Course> {
         this.classType = classType;
     }
 
-    public String getProgramme() {
-        return programme;
-    }
-
-    public void setProgramme(String programme) {
-        this.programme = programme;
-    }
-
     public String getSemester() {
         return semester;
     }
@@ -70,18 +61,13 @@ public class Course implements Comparable<Course> {
         this.faculty = faculty;
     }
 
-   public Course(String courseCode, String courseName, String classType, String programme, String semester, Integer creditHour, String faculty) {
-        this.courseCode = courseCode;
+   public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty) {
+       this.courseCode = courseCode;
         this.courseName = courseName;
         this.classType = classType;
-        this.programme = programme;
         this.semester = semester;
         this.creditHour = creditHour;
         this.faculty = faculty;
-    }
-
-    public Course(String programme) {
-        this.programme = programme;
     }
 
     public Course(String courseCode, String courseName) {
@@ -89,16 +75,9 @@ public class Course implements Comparable<Course> {
         this.courseName = courseName;
     }
 
-    public Course(String courseCode, String courseName, String programme) {
-      this.courseCode = courseCode;
-      this.courseName = courseName;
-      this.programme = programme;
-    }
-
-
     @Override
   public int compareTo(Course o) {
-    return programme.compareTo(o.programme);
+    return courseCode.compareTo(o.courseCode);
   }
 
   @Override
