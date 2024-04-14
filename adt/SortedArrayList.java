@@ -1,173 +1,196 @@
 package adt;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
-/**
- * MODIFIED
- *
- * SortedArrayList - Implements the ADT Sorted List using an array.
- * - Note: Some methods are not implemented yet and have been left as practical exercises
- */
-public class SortedArrayList<T extends Comparable<T>> implements SortedListInterface<T>, Serializable {
+public class SortedArrayList<T extends Comparable<T>> implements SortedListInterface<T>, Iterable<T> {
 
-    private T[] array;
-    private int numberOfEntries;
-    private static final int DEFAULT_CAPACITY = 25;
+  private T[] array;
+  private int numberOfEntries;
+  private static final int DEFAULT_CAPACITY = 25;
 
-    public SortedArrayList() {
-        this(DEFAULT_CAPACITY);
+  public SortedArrayList() {
+    this(DEFAULT_CAPACITY);
+  }
+
+  public SortedArrayList(int initialCapacity) {
+    numberOfEntries = 0;
+    array = (T[]) new Comparable[initialCapacity];
+  }
+
+  public boolean add(T newEntry) {
+      
+    int i = 0;
+    while (i < numberOfEntries && newEntry.compareTo(array[i]) > 0) {
+      i++;
+    
+    }
+    makeRoom(i + 1);
+    array[i] = newEntry;
+    numberOfEntries++;
+    return true;
+  }
+
+  public boolean remove(T anEntry) {
+    int i = 0;
+    while (i < numberOfEntries && anEntry.compareTo(array[i]) > 0) {
+      i++;
+    }
+    
+     if (i < numberOfEntries) {
+        removeGap(i);
+      }
+
+      numberOfEntries--;
+      return true;
+  }
+
+
+  @Override
+  public T getEntry(int givenPosition) {
+    T result = null;
+
+    if ((givenPosition >= 0) && (givenPosition <= numberOfEntries)) {
+      result = array[givenPosition];
     }
 
-    public SortedArrayList(int initialCapacity) {
-        numberOfEntries = 0;
-        array = (T[]) new Comparable[initialCapacity];
-    }
-
-    @Override
-    public boolean add(T newEntry) {
-
-        if (isArrayFull()) {
-            doubleArray();
+    return result;
+  }
+  
+  public void replace(T oldEntry,T newEntry){
+      int i = 0;
+      while (i < numberOfEntries && oldEntry.compareTo(array[i]) > 0) {
+      i++;
         }
+      array[i] = newEntry ;
+  }
+  
+  public int contains(T anEntry) {
+      if(isEmpty())
+          return -1;
+     return binarysearch(anEntry);
+  }
 
-        int i = 0;
+  public int getNumberOfEntries() {
+    return numberOfEntries;
+  }
 
-        while (i < numberOfEntries && newEntry.compareTo(array[i]) > 0) {
-            i++;
-        }
+  public boolean isEmpty() {
+    return numberOfEntries == 0;
+  }
 
-        makeRoom(i + 1);
-
-        array[i] = newEntry;
-        numberOfEntries++;
-
-        return true;
+  public String toString() {
+    String outputStr = "";
+    for (int index = 0; index < numberOfEntries; ++index) {
+      outputStr += array[index] + "\n";
     }
 
-    @Override
-    public boolean addAll(SortedListInterface newEntrys) {
-        Iterator i = newEntrys.getIterator();
-        while (i.hasNext()) {
-            add((T) i.next());
+    return outputStr;
+  }
+
+  @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < numberOfEntries && array[currentIndex] != null;
+            }
+
+            @Override
+            public T next() {
+                return array[currentIndex++];
+            }
+            public boolean remove(T anEntry) {
+    if (numberOfEntries == 0){
+        if (numberOfEntries == 0){
+            return false;
         }
-        return true;
-    }
-
-    @Override
-    public boolean remove(T anEntry) {
-
-        int index = 0;
-
-        while (index < numberOfEntries) {
-            if (array[index].compareTo(anEntry) >= 0) {
-                break;
-            } else {
-                index++;
+        else{
+            int i = 0;
+            while (i < numberOfEntries && array[i].compareTo(anEntry) < 0){
+                i++;
+            }
+            
+            if (array[i].equals(anEntry)){ //target found
+                removeGap(i + 1); //shifting after removed
+                numberOfEntries--;
+                return true;
             }
         }
-        if (index < numberOfEntries && array[index].compareTo(anEntry) == 0) {
-            removeGap(index + 1);
-            numberOfEntries--;
-            return true;
-        }
-
-        return false;
     }
+     return false;
+  }
 
-    @Override
-    public void clear() {
-        numberOfEntries = 0;
+//           @Override
+//        public void remove() {
+//            if (currentIndex < 0 || currentIndex >= numberOfEntries) {
+//            System.out.println("Invalid index or remove() called without next()");
+//        }
+//
+//            // Shift elements to the left starting from the index to be removed
+//            for (int i = currentIndex; i < numberOfEntries - 1; i++) {
+//        array[i] = array[i + 1];
+//        }
+//
+//            array[numberOfEntries - 1] = null; // Set the last element to null
+//            numberOfEntries--; // Update the number of entries in the array
+//            currentIndex--; // Decrement the current index after removal
+//            }
+        };
     }
-
-    @Override
-    public T get(T anEntry) {
-        for (int index = 0; index < numberOfEntries; index++) {
-            if (anEntry.equals(array[index])) {
-                return array[index];
-            }
-        }
-        return null;
-    }
-
-     @Override
-    public boolean contains(T anEntry){
-        return get(anEntry) != null;
-    }
-
-    public int getNumberOfEntries() {
-        return numberOfEntries;
-    }
-
-    public boolean isEmpty() {
-        return numberOfEntries == 0;
-    }
-
-    public String toString() {
-        String outputStr = "";
-        for (int index = 0; index < numberOfEntries; ++index) {
-            outputStr += array[index] + "\n";
-        }
-
-        return outputStr;
-    }
-
+    
     private boolean isArrayFull() {
-        return numberOfEntries == array.length;
+      return numberOfEntries == array.length;
     }
 
     private void doubleArray() {
-        T[] oldList = array;
-        int oldSize = oldList.length;
+      T[] oldList = array;
+      int oldSize = oldList.length;
 
-        array = (T[]) new Comparable[2 * oldSize];
+      array = (T[]) new Object[2 * oldSize];
 
-        for (int index = 0; index < oldSize; index++) {
-            array[index] = oldList[index];
-        }
+      for (int index = 0; index < oldSize; index++) {
+        array[index] = oldList[index];
+      }
     }
 
     private void makeRoom(int newPosition) {
-        int newIndex = newPosition - 1;
-        int lastIndex = numberOfEntries - 1;
-
-        for (int index = lastIndex; index >= newIndex; index--) {
-            array[index + 1] = array[index];
-        }
+      int newIndex = newPosition - 1;
+      int lastIndex = numberOfEntries - 1;
+      for (int index = lastIndex; index >= newIndex; --index) {
+        array[index + 1] = array[index];
+      }
     }
 
     private void removeGap(int givenPosition) {
-        int removedIndex = givenPosition - 1;
-        int lastIndex = numberOfEntries - 1;
+      int removedIndex = givenPosition;
+      int lastIndex = numberOfEntries - 1;
 
-        for (int index = removedIndex; index < lastIndex; index++) {
-            array[index] = array[index + 1];
-        }
+
+      for (int index = removedIndex; index < lastIndex; index++) {
+        array[index] = array[index + 1];
+      }
     }
 
-    @Override
-    public Iterator<T> getIterator() {
-        return new SortedIterator();
-    }
+    private int binarysearch(T search){
+        int lower = 0;
+        int higher = numberOfEntries - 1;
 
-    private class SortedIterator implements Iterator<T>, Serializable {
+        while(lower<=higher){
+            int middle=(lower+higher)/2;
+            int campresult=array[middle].compareTo(search);
 
-        int currentIndex = 0;
+            if (campresult == 0) {
+                  return middle; 
+              } else if (campresult < 0) {
+                  lower = middle + 1;
+              } else {
+                  higher = middle - 1;
+              }
+          }
 
-        @Override
-        public boolean hasNext() {
-            return currentIndex < numberOfEntries;
-        }
-
-        @Override
-        public T next() {
-            if (!hasNext()) {
-                return null;
-            }
-
-            return array[currentIndex++];
-        }
-
-    }
+          return -1;
+  }
 
 }
