@@ -2,16 +2,18 @@ package entity;
 
 /**
  *
- * @author pyhor
+ * @author Hor Pei Yu
  */
 public class Course implements Comparable<Course> {
-   
+
     private String courseCode;
-   private String courseName;
-   private String classType;
-   private String semester;
-   private Integer creditHour;
-   private String faculty;
+    private String courseName;
+    private String classType;
+    private String semester;
+    private Integer creditHour;
+    private String faculty;
+    private Double fees;
+    private String programmeCode;
 
     public String getCourseCode() {
         return courseCode;
@@ -61,26 +63,49 @@ public class Course implements Comparable<Course> {
         this.faculty = faculty;
     }
 
-   public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty) {
-       this.courseCode = courseCode;
+    public String getProgrammeCode() {
+        return programmeCode;
+    }
+
+    public void setProgrammeCode(String programmeCode) {
+        this.programmeCode = programmeCode;
+    }
+
+    public Double getFees() {
+        return fees;
+    }
+
+    public void setFees(Double fees) {
+        this.fees = fees;
+    }
+
+    public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty, Double fees) {
+        this.courseCode = courseCode;
         this.courseName = courseName;
         this.classType = classType;
         this.semester = semester;
         this.creditHour = creditHour;
         this.faculty = faculty;
+        this.fees = fees;
     }
 
-    public Course(String courseCode, String courseName) {
+    public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty, Double fees, String programmeCode) {
         this.courseCode = courseCode;
         this.courseName = courseName;
+        this.classType = classType;
+        this.semester = semester;
+        this.creditHour = creditHour;
+        this.faculty = faculty;
+        this.fees = fees;
+        this.programmeCode = programmeCode;
     }
 
     @Override
-  public int compareTo(Course o) {
-    return courseCode.compareTo(o.courseCode);
-  }
+    public int compareTo(Course o) {
+        return this.courseCode.compareTo(o.courseCode);
+    }
 
-  @Override
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
