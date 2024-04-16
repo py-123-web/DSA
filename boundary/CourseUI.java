@@ -154,6 +154,14 @@ public class CourseUI {
         String course_faculty = scanner.nextLine();
         return course_faculty.toUpperCase();
     }
+    
+     public String getStatus() {
+        System.out.print("Please enter status: ");
+        String course_status = scanner.nextLine();
+        return course_status.toUpperCase();
+    }
+    
+    
 
     //-----------------display-----------------------------
     public void programme_courseUI() {
@@ -225,7 +233,7 @@ public class CourseUI {
         courseName = courseName.toUpperCase();
         classType = classType.toUpperCase();
         semester = semester.toUpperCase();
-        programmeCode = programmeCode.toUpperCase();
+       // programmeCode = programmeCode.toUpperCase();
 
         // Print the formatted output
         if (courseName.length() > maxCharsPerLine) {
