@@ -14,6 +14,7 @@ public class Course implements Comparable<Course> {
     private String faculty;
     private Double fees;
     private String programmeCode;
+    private String status;
 
     public String getCourseCode() {
         return courseCode;
@@ -79,7 +80,15 @@ public class Course implements Comparable<Course> {
         this.fees = fees;
     }
 
-    public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty, Double fees) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty, Double fees, String status) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.classType = classType;
@@ -87,9 +96,10 @@ public class Course implements Comparable<Course> {
         this.creditHour = creditHour;
         this.faculty = faculty;
         this.fees = fees;
+        this.status = status;
     }
 
-    public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty, Double fees, String programmeCode) {
+    public Course(String courseCode, String courseName, String classType, String semester, Integer creditHour, String faculty, Double fees, String programmeCode, String status) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.classType = classType;
@@ -98,6 +108,7 @@ public class Course implements Comparable<Course> {
         this.faculty = faculty;
         this.fees = fees;
         this.programmeCode = programmeCode;
+        this.status = status;
     }
 
     @Override
@@ -105,28 +116,28 @@ public class Course implements Comparable<Course> {
         return this.courseCode.compareTo(o.courseCode);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Course otherCourse = (Course) obj;
-
-        if ((courseCode == null && otherCourse.courseCode != null)
-                || (courseCode != null && !courseCode.equals(otherCourse.courseCode))) {
-            return false;
-        }
-
-        if ((courseName == null && otherCourse.courseName != null)
-                || (courseName != null && !courseName.equals(otherCourse.courseName))) {
-            return false;
-        }
-
-        return true;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//
+//        if (obj == null || getClass() != obj.getClass()) {
+//            return false;
+//        }
+//
+//        Course otherCourse = (Course) obj;
+//
+//        if ((courseCode == null && otherCourse.courseCode != null)
+//                || (courseCode != null && !courseCode.equals(otherCourse.courseCode))) {
+//            return false;
+//        }
+//
+//        if ((courseName == null && otherCourse.courseName != null)
+//                || (courseName != null && !courseName.equals(otherCourse.courseName))) {
+//            return false;
+//        }
+//
+//        return true;
+//    }
 }
