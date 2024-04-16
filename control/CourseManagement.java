@@ -112,10 +112,10 @@ public class CourseManagement {
             int course_creditHour = courseUI.getCreditHour();
             String course_faculty = courseUI.getFaculty();
             double course_fees = courseUI.getFees();
-          
+          String course_status = courseUI.getStatus();
 
             // Check if the course with the same code already exists in the program
-            Course newCourse = new Course(course_code, course_name, class_type, course_semester, course_creditHour, course_faculty, course_fees, inputProgramme);
+            Course newCourse = new Course(course_code, course_name, class_type, course_semester, course_creditHour, course_faculty, course_fees, inputProgramme,course_status);
 //            int courseIndex = courseList.contains(newCourse);
 //            if (courseIndex != -1) {
 //                courseUI.displayAddCourseExist(course_code);
