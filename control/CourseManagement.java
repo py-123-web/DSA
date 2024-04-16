@@ -275,23 +275,49 @@ public class CourseManagement {
         courseUI.programme_courseUI();
 
         Iterator<Course> hardcodedIterator = initializer.courseInit();
-        Iterator<Programme> hardcodedIteratorProg = initializer.programmeInit();
+        // Iterator<Programme> hardcodedIteratorProg = initializer.programmeInit();
         Iterator<Course> inputIterator = courseList.iterator();
         Iterator<Programme> inputProgIterator = progList.iterator();
         
         // Display all courses and programmes
-        while (hardcodedIterator.hasNext() || hardcodedIteratorProg.hasNext()) {
-            if (hardcodedIterator.hasNext()) {
-                Course course = hardcodedIterator.next();
-                Programme programme = hardcodedIteratorProg.next();
-                if (course.getProgrammeCode().equals(programme.getProgrammeCode())) {
-                    courseUI.printProgrammeCourse(programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseCode(), course.getCourseName(), course.getClassType(), course.getSemester(), course.getCreditHour(), course.getFees(), course.getFaculty(), course.getStatus());
-                    System.out.println();
-                    foundData = true;
-                    break;
-                }
+        // while (hardcodedIterator.hasNext() || hardcodedIteratorProg.hasNext()) {
+        //     if (hardcodedIterator.hasNext()) {
+        //         Course course = hardcodedIterator.next();
+        //         Programme programme = hardcodedIteratorProg.next();
+
+        //         if (course.getProgrammeCode().equals(programme.getProgrammeCode())) {
+        //           System.out.println("asd-loop1-hasNext-programeCode===programmeCode");
+        //             courseUI.printProgrammeCourse(programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseCode(), course.getCourseName(), course.getClassType(), course.getSemester(), course.getCreditHour(), course.getFees(), course.getFaculty(), course.getStatus());
+        //             System.out.println();
+        //             foundData = true;
+        //             break;
+        //         }
+        //     }
+        // }
+
+        // Display all courses and programmes
+        while (hardcodedIterator.hasNext()) {
+          Iterator<Programme> hardcodedIteratorProg = initializer.programmeInit();
+          Course course = hardcodedIterator.next();
+
+          // Search for course's programme
+          while(hardcodedIteratorProg.hasNext()) {
+            Programme programme = hardcodedIteratorProg.next();
+
+            // Programme found
+            if (course.getProgrammeCode().equals(programme.getProgrammeCode())) {
+              courseUI.printProgrammeCourse(programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseCode(), course.getCourseName(), course.getClassType(), course.getSemester(), course.getCreditHour(), course.getFees(), course.getFaculty(), course.getStatus());
+              System.out.println();
+              foundData = true;
+              break;
             }
+            // Programme not found
+            else {
+              foundData = false;
+            }
+          }
         }
+
         while (inputIterator.hasNext() || inputProgIterator.hasNext()) {
             if (inputIterator.hasNext()) {
                 Course course = inputIterator.next();
