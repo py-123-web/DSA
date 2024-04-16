@@ -14,6 +14,10 @@ public class Programme implements Comparable<Programme> {
         this.programmeName = programmeName;
     }
 
+    public Programme(String programmeCode) {
+        this.programmeCode = programmeCode;
+    }
+
     public String getProgrammeCode() {
         return programmeCode;
     }
