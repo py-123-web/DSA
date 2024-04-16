@@ -293,6 +293,30 @@ public class CourseManagement {
         //         }
         //     }
         // }
+
+        // Display all courses and programmes
+        // while (hardcodedIterator.hasNext()) {
+        //   Iterator<Programme> hardcodedIteratorProg = initializer.programmeInit();
+        //   Course course = hardcodedIterator.next();
+
+        //   // Search for course's programme
+        //   while(hardcodedIteratorProg.hasNext()) {
+        //     Programme programme = hardcodedIteratorProg.next();
+
+        //     // Programme found
+        //     if (course.getProgrammeCode().equals(programme.getProgrammeCode())) {
+        //       courseUI.printProgrammeCourse(programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseCode(), course.getCourseName(), course.getClassType(), course.getSemester(), course.getCreditHour(), course.getFees(), course.getFaculty(), course.getStatus());
+        //       System.out.println();
+        //       foundData = true;
+        //       break;
+        //     }
+        //     // Programme not found
+        //     else {
+        //       foundData = false;
+        //     }
+        //   }
+        // }
+
         // Display all courses and programmes
         while (hardcodedIterator.hasNext() || hardcodedIteratorProg.hasNext() || inputIterator.hasNext() || inputProgIterator.hasNext()) {
 
