@@ -104,16 +104,18 @@ public class CourseManagement {
             } while (progExist);
 
             // Get details for the new course
+            String inputProgramme=courseUI.getProgrammeCode();
             String course_code = courseUI.getCourseCode();
-            String course_name = courseUI.getCourseName(); // do the verification of .isEmpty() for each input
+            String course_name = courseUI.getCourseName(); 
             String class_type = courseUI.getClassType();
             String course_semester = courseUI.getSemester();
             int course_creditHour = courseUI.getCreditHour();
             String course_faculty = courseUI.getFaculty();
             double course_fees = courseUI.getFees();
+          
 
             // Check if the course with the same code already exists in the program
-            Course newCourse = new Course(course_code, course_name, class_type, course_semester, course_creditHour, course_faculty, course_fees, stu_programmeCode);
+            Course newCourse = new Course(course_code, course_name, class_type, course_semester, course_creditHour, course_faculty, course_fees, inputProgramme);
 //            int courseIndex = courseList.contains(newCourse);
 //            if (courseIndex != -1) {
 //                courseUI.displayAddCourseExist(course_code);
@@ -276,7 +278,7 @@ public class CourseManagement {
         Iterator<Programme> hardcodedIteratorProg = initializer.programmeInit();
         Iterator<Course> inputIterator = courseList.iterator();
         Iterator<Programme> inputProgIterator = progList.iterator();
-
+        
         // Display all courses and programmes
         while (hardcodedIterator.hasNext() || hardcodedIteratorProg.hasNext()) {
             if (hardcodedIterator.hasNext()) {
