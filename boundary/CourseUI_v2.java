@@ -22,8 +22,8 @@ public class CourseUI {
     Scanner scanner = new Scanner(System.in);
 
     public int getMenuChoice() {
-        initializer.CourseInfo();
-        initializer.ProgrammeInfo();
+        // initializer.CourseInfo();
+        // initializer.ProgrammeInfo();
 
         int coursechoice = -1;
 
@@ -697,10 +697,10 @@ public class CourseUI {
         }
     }
 
-    public void listCourse() {
+    public void listCourse(Iterator<Course> courseIterator) {
         list_CourseUI();
 
-        Iterator<Course> courseIterator = initializer.courseList.iterator();
+        // Iterator<Course> courseIterator = initializer.courseList.iterator();
         boolean foundData = false; // Initialize foundData flag to track if any data is found
 
         while (courseIterator.hasNext()) {

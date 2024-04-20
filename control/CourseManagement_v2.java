@@ -265,14 +265,14 @@ public class CourseManagement {
 public void listProg() {
       Iterator<Course> courseIterator = initializer.courseList.iterator();
     
-    courseUI.listCourse();
+    courseUI.listCourse(courseIterator);
     String remove_courseProg = courseUI.removeProg_Course();
 
     if (remove_courseProg.isEmpty()) {
         System.out.println("[Error Message]: Code cannot be empty. Please try again.");
         return;
     } else if (remove_courseProg.equalsIgnoreCase("X")) {
-        runCourseSubsystem();
+        // runCourseSubsystem();
         return;
     }
 
@@ -304,7 +304,7 @@ public Course findProgByCode(String remove_programme) {
         System.out.println("[Error Message]: Code cannot be empty. Please try again.");
         return null;
     } else if (remove_programme.equalsIgnoreCase("X")) {
-        runCourseSubsystem();
+        // runCourseSubsystem();
         return null; // Exit the search method after running the course subsystem
     }else{
 // Iterate through the course list to find a course with the given program code
@@ -396,7 +396,7 @@ public Course findProgByCode(String remove_programme) {
                 System.out.println("[Error Message]: Code cannot be empty. Please try again.");
             } else {
                 if (search_courseCode.equalsIgnoreCase("X")) {
-                    runCourseSubsystem();
+                    // runCourseSubsystem();
                     return; // Exit the search method after running the course subsystem
                 }
 
@@ -527,7 +527,7 @@ public Course findProgByCode(String remove_programme) {
             System.out.println("[Error Message]: Code cannot be empty. Please try again.");
             return; // Removed return null;
         } else if (getProgCode_course.equalsIgnoreCase("X")) {
-            runCourseSubsystem();
+            // runCourseSubsystem();
             return; // Removed return null;
         }
 
@@ -569,7 +569,7 @@ public Course findProgByCode(String remove_programme) {
             System.out.println("[Error Message]: Code cannot be empty. Please try again.");
             return null;
         } else if (courseCode.equalsIgnoreCase("X")) {
-            runCourseSubsystem();
+            // runCourseSubsystem();
             return null; // Exit the search method after running the course subsystem
         }
 
