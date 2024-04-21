@@ -83,7 +83,7 @@ public class CourseManagement {
         } while (choice != 0);
     }
 
-    //--------------------------------- add fucntion --------------------------
+    //--------------------------------- add function --------------------------
     //----------------------------- add course-----------------------------
     private void addNewCourse() {
         courseUI.getAddCourseHeader();
@@ -93,7 +93,7 @@ public class CourseManagement {
 
         while (inputIteratorProg.hasNext()) {
             Programme programme = inputIteratorProg.next();
-            courseUI.programmeList(programme.getProgrammeCode(), programme.getProgrammeName());
+            courseUI.programmeList(programme.getProgCode(), programme.getProgName());
         }
 
         System.out.println("\nPlease select one programme to add new course\n");
@@ -178,7 +178,7 @@ public class CourseManagement {
 // Check if the programme is match with the hardcode or also can add new programme that not exist in hardcode
             boolean exists = false;
             for (Programme prog : initializer.progList) {
-                if (prog.getProgrammeCode().contains(programmeCode)) {
+                if (prog.getProgCode().contains(programmeCode)) {
                     exists = true;
                     break;
                 }
@@ -226,7 +226,7 @@ public class CourseManagement {
     }
 
     //--------------------------------- remove function -------------------------------   
-    public void removeCourse() {
+      public void removeCourse() {
         listCourseProg_remove();
         String courseCode = courseUI.getCodecourse(); // Get the course code
         Course oldCourse = findCourseByCode(courseCode);
@@ -290,6 +290,8 @@ public class CourseManagement {
         Scanner scanner = new Scanner(System.in); // Uncommented scanner initialization
         String remove_programme = courseUI.removeProgramme(); // Get the course code
         Course progToRemove = findProgByCode(remove_programme);
+        
+        
 
         if (progToRemove != null) {
             System.out.printf("Are you sure you want to remove this program? (Y/N): ");
@@ -332,8 +334,8 @@ public class CourseManagement {
             // Search for course's programme in progList
             while (inputIterator.hasNext()) {
                 Course course = inputIterator.next();
-                if (course.getProgrammeCode().contains(programme.getProgrammeCode())) {
-                    courseUI.printProgrammeCourse(programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseCode(), course.getCourseName());
+                if (course.getProgrammeCode().contains(programme.getProgCode())) {
+                    courseUI.printProgrammeCourse(programme.getProgCode(), programme.getProgName(), course.getCourseCode(), course.getCourseName());
                     foundData = true;
 
                 }
@@ -401,8 +403,7 @@ public class CourseManagement {
 
                 while (inputIterator.hasNext()) {
                     Course course = inputIterator.next();
-                    if (course.getCourseCode().contains(search_courseCode)) { 
-                        courseUI.searchOutput(course.getCourseCode(), course.getCourseName(), course.getSemester());
+                    if (course.getCourseCode().contains(search_courseCode)) {                         courseUI.searchOutput(course.getCourseCode(), course.getCourseName(), course.getSemester());
                         courseFound = true;
                     }
 
@@ -597,8 +598,8 @@ public class CourseManagement {
             // Search for course's programme in progList
             while (inputIterator.hasNext()) {
                 Course course = inputIterator.next();
-                if (course.getProgrammeCode().contains(programme.getProgrammeCode())) {
-                    courseUI.progReport(no, programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseName(), course.getCourseCode(), course.getStatus());
+                if (course.getProgrammeCode().contains(programme.getProgCode())) {
+                    courseUI.progReport(no, programme.getProgCode(), programme.getProgName(), course.getCourseName(), course.getCourseCode(), course.getStatus());
                     foundData = true;
                     no++; // Incrementing 'no' for the next report
                     totalCourse++;
@@ -732,8 +733,8 @@ public class CourseManagement {
             // Search for course's programme in progList
             while (inputIterator.hasNext()) {
                 Course course = inputIterator.next();
-                if (course.getProgrammeCode().equalsIgnoreCase(programme.getProgrammeCode())) {
-                    courseUI.printProgrammeCourse(programme.getProgrammeCode(), programme.getProgrammeName(), course.getCourseCode(), course.getCourseName());
+                if (course.getProgrammeCode().equalsIgnoreCase(programme.getProgCode())) {
+                    courseUI.printProgrammeCourse(programme.getProgCode(), programme.getProgName(), course.getCourseCode(), course.getCourseName());
                     foundData = true;
 
                 }
@@ -807,11 +808,10 @@ public class CourseManagement {
             if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
                 return course; // Found the course with the matching code
             }
-            System.out.println("[Error Message]: Course with code " + courseCode + " not found.");
-            return null;// Course not found
-        }
-        return null;
 
+        }
+        System.out.println("[Error Message]: Course with code " + courseCode + " not found.");
+        return null;// Course not found
     }
 
     public Course findProgByCode(String remove_programme) {
