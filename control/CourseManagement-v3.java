@@ -289,9 +289,9 @@ public class CourseManagement {
 
         Scanner scanner = new Scanner(System.in); // Uncommented scanner initialization
         String remove_programme = courseUI.removeProgramme(); // Get the course code
-        Course progToRemove = findProgByCode(remove_programme);
-        
-        
+        Course progToRemove = findProgByCode(remove_programme, remove_courseProg);
+
+
 
         if (progToRemove != null) {
             System.out.printf("Are you sure you want to remove this program? (Y/N): ");
@@ -814,7 +814,7 @@ public class CourseManagement {
         return null;// Course not found
     }
 
-    public Course findProgByCode(String remove_programme) {
+    public Course findProgByCode(String remove_programme, String remove_courseProg) {
 
         boolean foundData = false;
 
@@ -822,7 +822,10 @@ public class CourseManagement {
         Iterator<Course> courseIterator = initializer.courseList.iterator();
         while (courseIterator.hasNext()) {
             Course course = courseIterator.next();
-            if (course.getProgrammeCode().equalsIgnoreCase(remove_programme)) {
+            if (
+              course.getProgrammeCode().equalsIgnoreCase(remove_programme) &&
+              course.getCourseCode().equalsIgnoreCase(remove_courseProg)
+            ) {
                 return course; // Found the course with the matching program code
             }
         }
