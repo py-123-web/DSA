@@ -12,6 +12,11 @@ public class MenuUI {
     }
 
     public static void runMain(CourseManagement courseCtrl, StudentRegistration studentCtrl) {
+        // Initialize hardcoded data
+        courseCtrl.initialize();
+        studentCtrl.initialize(courseCtrl.initializer);
+
+
         Scanner scanner = new Scanner(System.in);
         int choice;
 
