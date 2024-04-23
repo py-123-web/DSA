@@ -22,13 +22,19 @@ public class StudentRegistration {
 
     StudentRegistrationUI studentUI = new StudentRegistrationUI();       //go to UI page
     StudentInitializer getStudentInitializer = new StudentInitializer(); //go to initializer page
-    CourseInitializer initializer = new CourseInitializer();             //add PY part
+    // CourseInitializer initializer = new CourseInitializer();             //add PY part
+    CourseInitializer initializer;
+
+    public void initialize(CourseInitializer initializer) {
+      getStudentInitializer.initializeStudent();
+      this.initializer = initializer;
+    }
 
     public void runStudentRegistration() {
         int choice = 0;
-        getStudentInitializer.initializeStudent();          //student list
+        // getStudentInitializer.initializeStudent();          //student list
 //        getStudentInitializer.CourseInfo();                 //course list
-        initializer.CourseInfo();	                        //add PY part
+        // initializer.CourseInfo();	                        //add PY part
 
         do {
             choice = studentUI.getMenuChoice();

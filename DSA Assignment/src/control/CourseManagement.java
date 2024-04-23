@@ -24,10 +24,15 @@ public class CourseManagement {
     boolean foundData = false;
     Scanner scanner = new Scanner(System.in);
 
+    public void initialize() {
+      initializer.CourseInfo();
+      initializer.ProgrammeInfo();
+    }
+
     public void runCourseSubsystem() {
         int choice;
-        initializer.CourseInfo();
-        initializer.ProgrammeInfo();
+        // initializer.CourseInfo();
+        // initializer.ProgrammeInfo();
 
         do {
             choice = courseUI.getMenuChoice();
